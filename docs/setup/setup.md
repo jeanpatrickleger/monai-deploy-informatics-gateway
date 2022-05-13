@@ -120,14 +120,13 @@ Locate the storage section of the configuration in `appsettings.json`:
   "InformaticsGateway": {
     "dicom": { ... },
     "storage": {
-      "storageServiceCredentials": {
-        "endpoint": "192.168.1.1:9000", # IP & port to MinIO instance
-        "accessKey": "admin", # Access key or username
-        "accessToken": "password" # Access token or password
-      },
-      "storageService": "Monai.Deploy.InformaticsGateway.Storage.MinIoStorageService, Monai.Deploy.InformaticsGateway.Storage.MinIo", # Fully qualified type name of the storage service
-      "securedConnection": false, # Indicates if a secured connection is required to access MinIO
-      "storageServiceBucketName": "igbucket" # The name of the bucket where data is uploaded to
+      "temporary": "/payloads",
+      "bucketName": "bucketname",
+      "settings": {
+        "endpoint": "ip/hostname/dns:9000",
+        "accessKey": "youraccesskey",
+        "accessToken": "youraccesstoken",
+        "securedConnection": false
     },
     ...
   }
@@ -200,7 +199,7 @@ The next step is to configure the Informatics Gateway to enable receiving of DIC
 1. Configure a listening AE Title to receive instances:
 
 ```bash
-mig-cli aet add -a BrainAET -grouping 0020,000E, -t 30
+mig-cli aet add -a BrainAET --grouping 0020,000E, -t 30
 ```
 
 The command creates a new listening AE Title with AE Title `BrainAET`.  The listening AE Title
